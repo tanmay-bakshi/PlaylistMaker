@@ -29,12 +29,6 @@ SWAPLIST = {
 AUTH_TOKEN: Optional[str] = None
 
 
-def main() -> None:
-    """
-    Main execution of the program.
-    """
-
-
 @app.route("/auth_callback")
 def callback() -> str:
     """
@@ -232,9 +226,9 @@ Usage:
     python3 main.py "phrase" "playlist name"
         """
         )
-    #        return 1
 
     user_phrase = sys.argv[1].lower()  # pylint: disable=invalid-name
+
     # Filter out non-alphabetical characters
     sanitized_phrase = "".join(
         [x for x in user_phrase if (ord(x) >= ord("a") and ord(x) <= ord("z")) or x == " " or x == "'"]
