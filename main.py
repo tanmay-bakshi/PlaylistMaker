@@ -8,6 +8,7 @@ from pathlib import Path
 from flask import Flask, request
 from typing import Any, Dict, List, Optional, Tuple
 
+Query = List[Dict[str, Any]]
 app = Flask(__name__)
 
 with (Path(__file__).parent / "credentials").open("r", encoding="utf-8") as file:
@@ -66,7 +67,7 @@ def callback() -> str:
     return ""
 
 
-def get_page(subphrase: str, track_limit: int, offset: int) -> Optional[List[Dict[str, Any]]]:
+def get_page(subphrase: str, track_limit: int, offset: int) -> Optional[Query]:
     """
     Get the page of songs that contain the subphrase in their titles.
 
@@ -134,7 +135,7 @@ def get_songs(phrase: List[str]) -> List[Dict[str, str]]:
         This dictionary includes information such as track name and artist.
     """
     subphrase = " ".join(phrase)
-    songs_to_add: List[Dict[str, Any]] = []
+    songs_to_add: Query = []
     cache: Dict[str, Dict[str, Any]] = {}
     while len(phrase) > 0:
         song: Optional[Dict[str, Any]] = None
