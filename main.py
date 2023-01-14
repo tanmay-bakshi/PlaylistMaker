@@ -28,7 +28,7 @@ SWAPLIST = {
 
 AUTH_TOKEN: Optional[str] = None
 
-
+# this is the main function
 def main() -> int:
     global PLAYLIST_NAME
     global SANITIZED_PHRASE
