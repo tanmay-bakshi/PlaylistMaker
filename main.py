@@ -29,37 +29,6 @@ SWAPLIST = {
 AUTH_TOKEN: Optional[str] = None
 
 
-def main() -> int:
-    global PLAYLIST_NAME
-    global SANITIZED_PHRASE
-    if len(sys.argv) != 3:
-        print(
-            """
-Usage:
-    python3 main.py "phrase" "playlist name"
-        """
-        )
-
-    PLAYLIST_NAME = sys.argv[1]  # pylint: disable=invalid-name
-    user_phrase = sys.argv[2].lower()  # pylint: disable=invalid-name
-
-    # Filter out non-alphabetical characters
-    SANITIZED_PHRASE = "".join(
-        [x for x in user_phrase if (ord(x) >= ord("a") and ord(x) <= ord("z")) or x == " " or x == "'"]
-    ).split()
-
-    os.system(
-        "open https://accounts.spotify.com"
-        f"/authorize?response_type=code\\&client_id={CLIENT_ID}"
-        "\\&scope=playlist-modify-public"
-        "\\&redirect_uri=http://localhost:8509/auth_callback"
-        "\\&state=ramranch"
-    )
-
-    app.run(port=8509, host="0.0.0.0")
-    return 0
-
-
 @app.route("/auth_callback")
 def callback() -> str:
     """
@@ -247,6 +216,37 @@ def add_to_playlist(songs: List[Dict[str, str]], playlist_id: str) -> None:
     response = requests.post(url=url, headers=headers, timeout=600)
     if "error" in response.json():
         raise ValueError
+
+
+def main() -> int:
+    global PLAYLIST_NAME
+    global SANITIZED_PHRASE
+    if len(sys.argv) != 3:
+        print(
+            """
+Usage:
+    python3 main.py "phrase" "playlist name"
+        """
+        )
+
+    PLAYLIST_NAME = sys.argv[1]  # pylint: disable=invalid-name
+    user_phrase = sys.argv[2].lower()  # pylint: disable=invalid-name
+
+    # Filter out non-alphabetical characters
+    SANITIZED_PHRASE = "".join(
+        [x for x in user_phrase if (ord(x) >= ord("a") and ord(x) <= ord("z")) or x == " " or x == "'"]
+    ).split()
+
+    os.system(
+        "open https://accounts.spotify.com"
+        f"/authorize?response_type=code\\&client_id={CLIENT_ID}"
+        "\\&scope=playlist-modify-public"
+        "\\&redirect_uri=http://localhost:8509/auth_callback"
+        "\\&state=ramranch"
+    )
+
+    app.run(port=8509, host="0.0.0.0")
+    return 0
 
 
 if __name__ == "__main__":
