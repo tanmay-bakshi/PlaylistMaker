@@ -227,13 +227,13 @@ Usage:
         """
         )
 
-    user_phrase = sys.argv[1].lower()  # pylint: disable=invalid-name
+    user_playlist_name = sys.argv[1]  # pylint: disable=invalid-name
+    user_phrase = sys.argv[2].lower()  # pylint: disable=invalid-name
 
     # Filter out non-alphabetical characters
     sanitized_phrase = "".join(
         [x for x in user_phrase if (ord(x) >= ord("a") and ord(x) <= ord("z")) or x == " " or x == "'"]
     ).split()
-    user_playlist_name = sys.argv[2]  # pylint: disable=invalid-name
 
     os.system(
         "open https://accounts.spotify.com"
