@@ -147,6 +147,8 @@ def search_songs(subphrase: str) -> Optional[Dict[str, Any]]:
                 return song
         offset += track_limit
 
+    return None
+
 
 def get_songs(phrase: List[str]) -> List[Dict[str, str]]:
     """
