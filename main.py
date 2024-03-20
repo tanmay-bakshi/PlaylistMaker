@@ -36,7 +36,7 @@ def main() -> int:
         print(
             """
 Usage:
-    python3 main.py "phrase" "playlist name"
+    python3 main.py "playlist name" "phrase"
         """
         )
 
